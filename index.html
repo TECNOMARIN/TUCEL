@@ -72,11 +72,10 @@
             margin-bottom: 0.25rem;
             color: #d1d5db;
         }
-        .floating-gemini-button {
+        /* Floating Buttons */
+        .floating-button {
             position: fixed;
-            bottom: 20px;
             right: 20px;
-            background: linear-gradient(to right, #DAA520, #F0E68C);
             color: #111;
             border-radius: 50%;
             width: 60px;
@@ -90,8 +89,18 @@
             z-index: 1000;
             transition: transform 0.3s ease;
         }
-        .floating-gemini-button:hover {
+        .floating-button:hover {
             transform: scale(1.1);
+        }
+        .floating-payment-button {
+            bottom: 90px; /* Positioned above the help button */
+            background: linear-gradient(to right, #25D366, #1DA851); /* Green Gradient */
+            font-size: 2rem;
+            color: white;
+        }
+        .floating-gemini-button {
+            bottom: 20px;
+            background: linear-gradient(to right, #DAA520, #F0E68C);
         }
         .whatsapp-icon-button {
             position: absolute;
@@ -267,9 +276,45 @@
         </a>
     </footer>
 
+    <!-- Floating Payment Button -->
+    <div class="floating-button floating-payment-button" data-bs-toggle="modal" data-bs-target="#paymentModal" title="Pague aquí">
+        $
+    </div>
+
     <!-- Floating Gemini Button -->
-    <div id="floating-gemini-button" class="floating-gemini-button" data-bs-toggle="modal" data-bs-target="#geminiModal">
+    <div id="floating-gemini-button" class="floating-button floating-gemini-button" data-bs-toggle="modal" data-bs-target="#geminiModal">
         ?
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="paymentModalLabel">Realiza tu Pago</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <p class="mb-4">Escanea el código QR para realizar tu pago.</p>
+                    <img src="https://raw.githubusercontent.com/TECNOMARIN/TUCEL/refs/heads/main/Imagen%20de%20WhatsApp%202025-07-28%20a%20las%2013.53.47_18aa0dca.jpg" alt="Código QR de Pago" class="mx-auto rounded-lg">
+                    <div class="mt-4 text-left p-3 bg-gray-800 rounded-lg">
+                        <h5 class="font-bold text-lg mb-2" style="color: #DAA520;">📣 ¡Buenas noticias en JETCELL!</h5>
+                        <p class="mb-3">En JETCELL premiamos tu puntualidad. Si pagas todas tus cuotas puntualmente (con menos de 2 días de mora) recibirás un beneficio especial:</p>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li>✅ <span class="font-semibold">Plan semanal (hasta 42 semanas):</span> se te condonan las últimas 8 cuotas.</li>
+                            <li>✅ <span class="font-semibold">Plan quincenal (hasta 16 quincenas):</span> se te condonan las últimas 4 cuotas.</li>
+                            <li>✅ <span class="font-semibold">Plan mensual (hasta 9 meses):</span> se te condonan las últimas 2 cuotas.</li>
+                        </ul>
+                        <p class="font-bold mt-3">🎁 ¡Por pagar puntual, ganas más!</p>
+                        <p class="text-xs text-gray-400 mt-2">📌 Aplica solo para créditos con duración máxima de 42 semanas, 16 quincenas o 9 meses.</p>
+                        <p class="mt-3">💬 Escríbenos si tienes dudas. Estamos para servirte.</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Gemini Modal -->
@@ -643,7 +688,7 @@ Estamos atentos a cualquier inquietud.</textarea>
                     category: "Celulares",
                     brand: "INFINIX",
                     imageUrl: "https://nissei.com/media/catalog/product/cache/24e3af3791642c18c52611620aeb2e21/x/w/xwoOxQl3hmBTY1PT5rtuTGnzNf1VFf7IN7m.jpg",
-                    initialPayment: "$130,000",
+                    initialPayment: "$100,000",
                     fullPrice: "1153000",
                     installments: [
                         {"frecuencia":"Pago semanal","num_cuotas":"42","valor_cuota":25100},
