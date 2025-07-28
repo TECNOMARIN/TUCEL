@@ -848,7 +848,7 @@ Estamos atentos a cualquier inquietud.</textarea>
                 askGeminiButton.disabled = true;
                 
                 try {
-                    const apiKey = "AIzaSyAYQfbpBfVe_Y23VTMIFh9fuzNPIDyrf6Q"; 
+                    const apiKey = "AIzaSyA8lvU3TtxIOESnM3IdJGSY7S3kT39xRBU"; 
 
                     if (apiKey === "AQUÍ_VA_TU_CLAVE_API_SECRETA" || !apiKey) {
                         responseText.textContent = 'Error: La clave API del asistente no ha sido configurada. Reemplaza el texto del placeholder en el código con tu clave real.';
@@ -893,7 +893,7 @@ Estamos atentos a cualquier inquietud.</textarea>
                     }
 
                     const payload = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
-                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
 
                     const response = await fetch(apiUrl, {
                         method: 'POST',
