@@ -177,6 +177,10 @@
             border-color: #007bff;
             box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
         }
+        .form-group input[readonly] {
+            background-color: #e9ecef;
+            cursor: not-allowed;
+        }
         .section-title-modal {
             font-size: 1.25rem;
             font-weight: 700;
@@ -282,6 +286,13 @@
 
     </div>
 
+    <!-- Management Platform Button -->
+    <footer class="text-center p-4 mt-8">
+        <a href="https://portalgets.solutions/dashLicense/dash_licenses.php?section=nuovopay-gestion" target="_blank" rel="noopener noreferrer" class="info-button bg-gray-800 hover:bg-gray-700">
+            Plataforma de Gestión
+        </a>
+    </footer>
+
     <!-- Floating Gemini Button -->
     <div id="floating-gemini-button" class="floating-gemini-button" data-bs-toggle="modal" data-bs-target="#geminiModal">
         ?
@@ -381,9 +392,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="numInstallments">Número de Cuotas:</label>
-                                        <select id="numInstallments" name="numInstallments" class="mt-1">
-                                            <!-- Options will be dynamically populated by JavaScript -->
-                                        </select>
+                                        <input type="text" id="numInstallments" name="numInstallments" class="mt-1" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -552,7 +561,7 @@ Estamos atentos a cualquier inquietud.</textarea>
             const creditApplicationForm = document.getElementById('credit-application-form');
             const successMessageModal = document.getElementById('successMessageModal');
             const paymentFrequencySelect = document.getElementById('paymentFrequency');
-            const numInstallmentsSelect = document.getElementById('numInstallments');
+            const numInstallmentsInput = document.getElementById('numInstallments');
 
             const products = [
                 {
@@ -782,22 +791,17 @@ Estamos atentos a cualquier inquietud.</textarea>
             });
 
             function updateInstallmentOptions() {
-                numInstallmentsSelect.innerHTML = '';
-                const selectedFrequency = paymentFrequencySelect.value;
-                let maxInstallments;
-                if (selectedFrequency === 'semanal') {
-                    maxInstallments = 42;
-                } else if (selectedFrequency === 'quincenal') {
-                    maxInstallments = 16;
-                } else { // mensual
-                    maxInstallments = 9;
-                }
+                const installmentsData = JSON.parse(document.getElementById('formInstallments').value || '[]');
+                const selectedFrequency = paymentFrequencySelect.value; // "semanal", "quincenal", "mensual"
+                
+                const selectedPlan = installmentsData.find(inst => 
+                    inst.frecuencia.toLowerCase().includes(selectedFrequency)
+                );
 
-                for (let i = 1; i <= maxInstallments; i++) {
-                    const option = document.createElement('option');
-                    option.value = i;
-                    option.textContent = i;
-                    numInstallmentsSelect.appendChild(option);
+                if (selectedPlan) {
+                    numInstallmentsInput.value = selectedPlan.num_cuotas;
+                } else {
+                    numInstallmentsInput.value = 'N/A';
                 }
             }
 
@@ -805,12 +809,12 @@ Estamos atentos a cualquier inquietud.</textarea>
 
             // Initial setup
             // Hide unnecessary tabs
-            if(tvsTab) tvsTab.style.display = 'none';
-            if(othersTab) othersTab.style.display = 'none';
+            if(document.getElementById('tvs-tab')) document.getElementById('tvs-tab').style.display = 'none';
+            if(document.getElementById('others-tab')) document.getElementById('others-tab').style.display = 'none';
             
             populateBrandFilters();
             applyFilters();
-            updateInstallmentOptions();
+            
 
             askGeminiButton.addEventListener('click', async () => {
                 const question = questionInput.value.trim();
@@ -908,14 +912,25 @@ Estamos atentos a cualquier inquietud.</textarea>
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
+                const installments = JSON.parse(data.installments || '[]');
+                const selectedFrequencyText = data.paymentFrequency.charAt(0).toUpperCase() + data.paymentFrequency.slice(1);
+                
+                const selectedPlan = installments.find(inst => 
+                    inst.frecuencia.toLowerCase().includes(data.paymentFrequency)
+                );
+                const installmentValue = selectedPlan ? selectedPlan.valor_cuota.toLocaleString('es-CO') : 'No disponible';
+
                 const whatsappMessage = `¡Hola! Me gustaría solicitar un crédito para el siguiente producto:
 
 *Detalles del Producto:*
 Nombre: ${data.productName}
 Marca: ${data.productBrand}
 Inicial: ${data.initialPayment}
-Periodicidad de Pago: ${data.paymentFrequency}
+
+*Plan de Pago Seleccionado:*
+Periodicidad: ${selectedFrequencyText}
 Número de Cuotas: ${data.numInstallments}
+Valor de la Cuota: $${installmentValue}
 
 *Mis Datos Personales:*
 Nombre completo: ${data.fullName}
