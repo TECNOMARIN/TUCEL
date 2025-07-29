@@ -517,22 +517,7 @@
                             <label for="messageTemplate" class="block text-lg font-semibold mb-2 text-slate-300">2. Edita la plantilla del mensaje</label>
                             <p class="text-sm text-slate-400 mb-3">El texto <code class="bg-slate-600 px-1 rounded">¡Hola [Nombre]!</code> será reemplazado por el nombre de cada contacto.</p>
                             <textarea id="messageTemplate" rows="12" class="w-full p-3 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition bg-slate-700 text-white">📢 ¡Hola [Nombre]!
-Te informamos que actualmente existe un saldo pendiente de pago en tu cuenta en GETS SOLUTIONS. Es importante regularizar esta situación a la mayor brevedad para evitar bloqueos de servicios y reportes negativos en las centrales de riesgo.
-💳 Puedes realizar tu pago a través de los siguientes canales:
-▪️ Bancolombia
-Código convenio: 7569
-Nombre del convenio: GETS SOLUTIONS
-Referencia de pago: tu número de cédula
-▪️ Efecty
-Código convenio: 113688
-Nombre del convenio: GETS SOLUTIONS
-Referencia de pago: tu número de cédula
-▪️ Wompi
-PSE o Tarjeta de Crédito a través del sitio web:
-🔗 https://checkout.getsmobile.shop/pago_pse.php
-✅ Si ya realizaste tu pago, por favor ignora este mensaje.
-📲 Para más información o soporte técnico, puedes escribirnos a nuestro WhatsApp: +57 300 6631525
-Estamos atentos a cualquier inquietud.</textarea>
+ingresa aqui el texto a masificar.</textarea>
                         </div>
                         
                         <!-- NEW SECTION: Attachment Link -->
@@ -583,6 +568,26 @@ Estamos atentos a cualquier inquietud.</textarea>
             const numInstallmentsInput = document.getElementById('numInstallments');
 
             const products = [
+                {
+                    name: "XIAOMI Redmi Note 14 Pro 256 GB 8 GB RAM",
+                    category: "Celulares",
+                    brand: "XIAOMI",
+                    imageUrl: "https://exitocol.vtexassets.com/arquivos/ids/29075447/Celular-XIAOMI-Redmi-Note-14-Pro-5G-256-GB-8-GB-RAM-Verde-3645885_a.jpg?v=638877815464730000",
+                    initialPayment: "$200,000",
+                    fullPrice: "1680000",
+                    installments: [
+                        {"frecuencia":"Pago semanal","num_cuotas":"42","valor_cuota":40000},
+                        {"frecuencia":"Pago quincenal","num_cuotas":"16","valor_cuota":105000},
+                        {"frecuencia":"Pago mensual","num_cuotas":"9","valor_cuota":186700}
+                    ],
+                    specs: [
+                        { key: "Cámara Trasera", value: "200MP + 8MP + 2MP" },
+                        { key: "Cámara Frontal", value: "20MP" },
+                        { key: "RAM", value: "8 GB" },
+                        { key: "Pantalla", value: "6.67\" CrystalRes AMOLED" },
+                        { key: "Memoria", value: "256 GB" }
+                    ]
+                },
                 {
                     name: "SAMSUNG A16 128GB 6RAM",
                     category: "Celulares",
